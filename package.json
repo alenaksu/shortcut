@@ -1,0 +1,45 @@
+{
+  "name": "@alenaksu/shortcut",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript library for managing keyboard shortcuts in the browser.",
+  "main": "lib/index.js",
+  "type": "module",
+  "scripts": {
+    "pretest": "npm run build",
+    "test": "wtr",
+    "build": "tsc --outdir lib",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alenaksu/shortcut.git"
+  },
+  "keywords": [
+    "shortcuts",
+    "keyboard"
+  ],
+  "author": "alenaksu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alenaksu/shortcut/issues"
+  },
+  "homepage": "https://github.com/alenaksu/shortcut#readme",
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@types/mocha": "^10.0.6",
+    "@types/sinon": "^17.0.3",
+    "@web/test-runner": "^0.18.1",
+    "@web/test-runner-commands": "^0.9.0",
+    "@web/test-runner-playwright": "^0.11.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "3.2.5",
+    "typescript": "^5.4.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "sinon": "^17.0.1"
+  }
+}
