@@ -22,15 +22,6 @@ const handlers = new Set<() => void>();
 
 const getKeyName = (key: string) => keyAliases[key.toLowerCase()] ?? key.toLowerCase();
 
-document.addEventListener("keydown", (e) => {
-  pressedKeys.add(e.key.toLowerCase());
-});
-
-document.addEventListener("keyup", (e) => {
-  handlers.forEach((handler) => handler());
-  pressedKeys.delete(e.key.toLowerCase());
-});
-
 export const isKeyPressed = (key: string) => {
   return pressedKeys.has(getKeyName(key));
 };
@@ -81,3 +72,12 @@ export const shortcut = (keys: string, callback: () => void, { timeout = 0 } = {
 
   return () => handlers.delete(handleKeyDown);
 };
+
+document.addEventListener("keydown", (e) => {
+  pressedKeys.add(e.key.toLowerCase());
+});
+
+document.addEventListener("keyup", (e) => {
+  handlers.forEach((handler) => handler());
+  pressedKeys.delete(e.key.toLowerCase());
+});

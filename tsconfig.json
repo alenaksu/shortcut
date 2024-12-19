@@ -4,6 +4,11 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-    "lib": ["DOM", "ES2022"]
-  }
+    "lib": ["DOM", "ES2022"],
+    "outDir": "./lib",
+    "declarationDir": "./lib",
+    "declaration": true,
+    "sourceMap": true
+  },
+  "include": ["./src/**/*"]
 }

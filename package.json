@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "vitest",
-    "build": "tsup",
+    "build": "tsc",
     "prepare": "husky"
   },
   "repository": {
@@ -49,7 +49,6 @@
     "playwright": "^1.49.1",
     "prettier": "3.4.2",
     "semantic-release": "^24.2.0",
-    "tsup": "^8.3.5",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   },
