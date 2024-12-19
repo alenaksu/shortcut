@@ -18,7 +18,7 @@ Include the following script tag in your HTML file:
 
 HTML
 
-<script src="https://unpkg.com/shortcut@latest/dist/shortcut.min.js"></script>
+<script src="https://unpkg.com/@alenaksu/shortcut@latest"></script>
 
 ## Usage
 
@@ -33,12 +33,15 @@ A callback is executed when the specified keyboard shortcut is pressed.
 **Example: Simple Shortcut**
 
 ```js
-import shortcut from "shortcut";
+import { shortcut } from "shortcut";
 
-shortcut("ctrl+c", () => {
+const clearShortcut = shortcut("ctrl+c", () => {
   // Simulate copying for this example
   console.log("Content copied!");
 });
+
+// Clear the shortcur when no longer needed
+clearShortcut();
 ```
 
 ### Multiple Shortcuts
