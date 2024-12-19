@@ -16,9 +16,9 @@ Using a CDN (Content Delivery Network):
 
 Include the following script tag in your HTML file:
 
-HTML
-
+```html
 <script src="https://unpkg.com/@alenaksu/shortcut@latest"></script>
+```
 
 ## Usage
 
