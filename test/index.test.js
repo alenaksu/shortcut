@@ -1,7 +1,5 @@
-import { shortcut, clearAllShortcuts } from "../lib/index.js";
-import { aTimeout, expect } from "@open-wc/testing";
-import { sendKeys } from "@web/test-runner-commands";
-import sinon from "sinon";
+import { vi, describe, it, afterEach } from "vitest";
+import { shortcut, clearAllShortcuts } from "../src/index.js";
 
 describe("shortcut", () => {
   afterEach(() => {
@@ -10,7 +8,7 @@ describe("shortcut", () => {
 
   it("should catch a simple shortcut", async () => {
     // Arrange
-    const spyFn = sinon.spy();
+    const spyFn = vi.fn();
     shortcut("ctrl+x", spyFn);
 
     // Act
@@ -22,10 +20,10 @@ describe("shortcut", () => {
     expect(spyFn).to.have.been.called;
   });
 
-  it.only("should catch a combination of shortcuts", async () => {
+  it("should catch a combination of shortcuts", async () => {
     // Arrange
-    const validSpy = sinon.spy();
-    const invalidSpy = sinon.spy();
+    const validSpy = vi.fn();
+    const invalidSpy = vi.fn();
 
     shortcut("ctrl+x,ctrl+v", validSpy);
     shortcut("ctrl+x,ctrl+w", invalidSpy);

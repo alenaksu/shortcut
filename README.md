@@ -65,6 +65,27 @@ shortcut(
 ); // Timeout of 3 seconds
 ```
 
+### Key aliases
+
+The shortcut library provides key aliases for simpler shortcut definitions. For example, `esc` can be used instead of `escape`, `cmd` or `win` instead of `meta`, and `ctl` or `ctrl` instead of `control`.
+
+Here's a table of all available aliases:
+
+| Alias     | Key        |
+| --------- | ---------- |
+| space     |            |
+| esc       | escape     |
+| del       | delete     |
+| ins       | insert     |
+| cmd, win  | meta       |
+| ctl, ctrl | control    |
+| opt, alt  | alt        |
+| pause     | pausebreak |
+| pgup      | pageup     |
+| pgdn      | pagedown   |
+| caps      | capslock   |
+| return    | enter      |
+
 ## License
 
 This library is licensed under the MIT License, a permissive open-source license that allows for free use, modification, and distribution. See the LICENSE file for details.

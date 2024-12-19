@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "description": "A lightweight JavaScript library for managing keyboard shortcuts in the browser.",
   "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
   "scripts": {
-    "pretest": "npm run build",
-    "test": "wtr",
-    "build": "tsc --outdir lib",
+    "test": "vitest",
+    "build": "tsup",
     "prepare": "husky"
   },
   "repository": {
@@ -23,32 +30,30 @@
   "bugs": {
     "url": "https://github.com/alenaksu/shortcut/issues"
   },
+  "files": [
+    "lib"
+  ],
   "homepage": "https://github.com/alenaksu/shortcut#readme",
   "devDependencies": {
-    "@commitlint/cli": "^19.2.2",
-    "@commitlint/config-conventional": "^19.2.2",
-    "@open-wc/testing": "^4.0.0",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^12.0.0",
+    "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^10.0.3",
-    "@semantic-release/npm": "^12.0.0",
-    "@semantic-release/release-notes-generator": "^13.0.0",
-    "@types/mocha": "^10.0.6",
-    "@types/sinon": "^17.0.3",
-    "@web/test-runner": "^0.18.1",
-    "@web/test-runner-commands": "^0.9.0",
-    "@web/test-runner-playwright": "^0.11.0",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "prettier": "3.2.5",
-    "semantic-release": "^23.0.8",
-    "typescript": "^5.4.2"
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.2",
+    "@vitest/browser": "^2.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "playwright": "^1.49.1",
+    "prettier": "3.4.2",
+    "semantic-release": "^24.2.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
-  },
-  "dependencies": {
-    "sinon": "^17.0.1"
   }
 }

@@ -47,14 +47,14 @@ export const shortcut = (keys: string, callback: () => void, { timeout = 0 } = {
     .map((key) => key.split("+"));
 
   let cursor = 0;
-  let timerId = 0;
+  let timeoutId = 0;
 
   const reset = () => {
     cursor = 0;
   };
 
   const handleKeyDown = () => {
-    clearTimeout(timerId);
+    clearTimeout(timeoutId);
 
     const keys = list.at(cursor)!;
     const allPressed = keys.every((key) => isKeyPressed(key));
@@ -73,7 +73,7 @@ export const shortcut = (keys: string, callback: () => void, { timeout = 0 } = {
       callback();
       reset();
     } else if (timeout) {
-      timerId = setTimeout(reset, timeout);
+      timeoutId = window.setTimeout(reset, timeout);
     }
   };
 
