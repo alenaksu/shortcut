@@ -33,7 +33,7 @@ A callback is executed when the specified keyboard shortcut is pressed.
 **Example: Simple Shortcut**
 
 ```js
-import { shortcut } from "shortcut";
+import { shortcut } from "@alenaksu/shortcut";
 
 const clearShortcut = shortcut("ctrl+c", () => {
   // Simulate copying for this example
