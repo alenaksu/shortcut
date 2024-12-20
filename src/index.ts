@@ -1,26 +1,28 @@
-export const keyAliases: Record<string, string> = {
-  space: " ",
-  esc: "escape",
-  del: "delete",
-  ins: "insert",
-  cmd: "meta",
-  win: "meta",
-  apps: "contextmenu",
-  ctl: "control",
-  ctrl: "control",
-  opt: "alt",
-  alt: "alt",
-  pause: "pausebreak",
-  pgup: "pageup",
-  pgdn: "pagedown",
-  caps: "capslock",
-  return: "enter",
-};
+export const keyAliases: Map<string, string> = new Map(
+  Object.entries({
+    space: " ",
+    esc: "escape",
+    del: "delete",
+    ins: "insert",
+    cmd: "meta",
+    win: "meta",
+    apps: "contextmenu",
+    ctl: "control",
+    ctrl: "control",
+    opt: "alt",
+    alt: "alt",
+    pause: "pausebreak",
+    pgup: "pageup",
+    pgdn: "pagedown",
+    caps: "capslock",
+    return: "enter",
+  }),
+);
 
 const pressedKeys = new Set<string>();
 const handlers = new Set<() => void>();
 
-const getKeyName = (key: string) => keyAliases[key.toLowerCase()] ?? key.toLowerCase();
+const getKeyName = (key: string) => keyAliases.get(key.toLowerCase()) ?? key.toLowerCase();
 
 export const isKeyPressed = (key: string) => {
   return pressedKeys.has(getKeyName(key));
