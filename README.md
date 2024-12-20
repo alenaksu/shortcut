@@ -27,13 +27,13 @@ A callback is executed when the specified keyboard shortcut is pressed.
 ```js
 import { shortcut } from "@alenaksu/shortcut";
 
-const clearShortcut = shortcut("ctrl+c", () => {
+const unbindShortcut = shortcut("ctrl+c", () => {
   // Simulate copying for this example
   console.log("Content copied!");
 });
 
 // Unbind the shortcut when no longer needed
-clearShortcut();
+unbindShortcut();
 ```
 
 ### Multiple Shortcuts
