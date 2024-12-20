@@ -1,9 +1,15 @@
-import { vi, describe, it, afterEach } from "vitest";
-import { shortcut, clearAllShortcuts } from "../src/index.js";
+import { vi, describe, it, afterEach, expect, beforeEach } from "vitest";
+import { isKeyPressed, shortcut, unbindAllShortcuts } from "../src/index";
+import { userEvent } from "@vitest/browser/context";
 
 describe("shortcut", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
   afterEach(() => {
-    clearAllShortcuts();
+    vi.clearAllTimers();
+    unbindAllShortcuts();
   });
 
   it("should catch a simple shortcut", async () => {
@@ -12,12 +18,10 @@ describe("shortcut", () => {
     shortcut("ctrl+x", spyFn);
 
     // Act
-    await sendKeys({
-      press: "Control+X",
-    });
+    await userEvent.keyboard("{Control>}X{/Control}");
 
     // Assert
-    expect(spyFn).to.have.been.called;
+    expect(spyFn).toHaveBeenCalled();
   });
 
   it("should catch a combination of shortcuts", async () => {
@@ -29,15 +33,75 @@ describe("shortcut", () => {
     shortcut("ctrl+x,ctrl+w", invalidSpy);
 
     // Act
-    await sendKeys({
-      press: "Control+X",
-    });
-    await sendKeys({
-      press: "Control+V",
-    });
+    await userEvent.keyboard("{Control>}X{/Control}");
+    await userEvent.keyboard("{Control>}V{/Control}");
 
     // Assert
-    expect(validSpy).to.have.been.called;
-    expect(invalidSpy).not.to.have.been.called;
+    expect(validSpy).toHaveBeenCalled();
+    expect(invalidSpy).not.toHaveBeenCalled();
+  });
+
+  it("should reset the state when and invalid combination is pressed", async () => {
+    // Arrange
+    const validSpy = vi.fn();
+    const invalidSpy = vi.fn();
+
+    shortcut("ctrl+x,ctrl+v", validSpy);
+    shortcut("ctrl+x,ctrl+w", invalidSpy);
+
+    // Act
+    await userEvent.keyboard("{Control>}X{/Control}");
+    await userEvent.keyboard("{Control>}C{/Control}");
+    await userEvent.keyboard("{Control>}V{/Control}");
+
+    // Assert
+    expect(validSpy).not.toHaveBeenCalled();
+    expect(invalidSpy).not.toHaveBeenCalled();
+  });
+
+  it("should reset the state a timeout is reached", async () => {
+    // Arrange
+    const validSpy = vi.fn();
+    const invalidSpy = vi.fn();
+
+    shortcut("ctrl+x,ctrl+v", validSpy);
+    shortcut("ctrl+x,ctrl+v", invalidSpy, { timeout: 100 });
+
+    // Act
+    await userEvent.keyboard("{Control>}X{/Control}");
+    vi.advanceTimersByTime(200);
+    await userEvent.keyboard("{Control>}V{/Control}");
+
+    // Assert
+    expect(validSpy).toHaveBeenCalled();
+    expect(invalidSpy).not.toHaveBeenCalled();
+  });
+
+  it("should detach a shortcut", async () => {
+    // Arrange
+    const spyFn = vi.fn();
+    const detach = shortcut("ctrl+x", spyFn);
+
+    // Act
+    detach();
+    await userEvent.keyboard("{Control>}X{/Control}");
+
+    // Assert
+    expect(spyFn).not.toHaveBeenCalled();
+  });
+
+  describe("isKeyPressed", () => {
+    it("should return the state of the key", async () => {
+      // Arrange
+      const spyFn = vi.fn();
+      shortcut("ctrl+x", spyFn);
+
+      // Act
+      await userEvent.keyboard("{Control>}");
+
+      // Assert
+      expect(isKeyPressed("ctrl")).toBe(true);
+      expect(isKeyPressed("alt")).toBe(false);
+    });
   });
 });

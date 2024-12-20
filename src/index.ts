@@ -26,7 +26,7 @@ export const isKeyPressed = (key: string) => {
   return pressedKeys.has(getKeyName(key));
 };
 
-export const clearAllShortcuts = () => {
+export const unbindAllShortcuts = () => {
   handlers.clear();
 };
 
@@ -35,12 +35,13 @@ export const shortcut = (keys: string, callback: () => void, { timeout = 0 } = {
     .replaceAll(" ", "")
     .toLowerCase()
     .split(",")
-    .map((key) => key.split("+"));
+    .map((key) => key.split("+").map(getKeyName));
 
   let cursor = 0;
   let timeoutId = 0;
 
   const reset = () => {
+    console.log("reset");
     cursor = 0;
   };
 
@@ -48,18 +49,23 @@ export const shortcut = (keys: string, callback: () => void, { timeout = 0 } = {
     clearTimeout(timeoutId);
 
     const keys = list.at(cursor)!;
-    const allPressed = keys.every((key) => isKeyPressed(key));
-    const somePressed = keys.some((key) => isKeyPressed(key));
-    const shortcutComplete = allPressed && ++cursor === list.length;
 
-    if (!somePressed) {
-      reset();
+    let pressed = 0;
+    for (const pressedKey of pressedKeys) {
+      if (!keys.includes(pressedKey)) {
+        reset();
+        return;
+      }
+
+      pressed++;
     }
 
-    if (!allPressed) {
+    const allPressed = pressed < keys.length;
+    if (allPressed) {
       return;
     }
 
+    const shortcutComplete = ++cursor === list.length;
     if (shortcutComplete) {
       callback();
       reset();
@@ -75,9 +81,9 @@ export const shortcut = (keys: string, callback: () => void, { timeout = 0 } = {
 
 document.addEventListener("keydown", (e) => {
   pressedKeys.add(e.key.toLowerCase());
+  handlers.forEach((handler) => handler());
 });
 
 document.addEventListener("keyup", (e) => {
-  handlers.forEach((handler) => handler());
   pressedKeys.delete(e.key.toLowerCase());
 });

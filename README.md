@@ -22,7 +22,7 @@ Include the following script tag in your HTML file:
 
 ## Usage
 
-### Define a Shortcut
+### Bind a Shortcut
 
 A shortcut is string representing the desired keyboard combination. Use plus signs (+) to separate keys and modifiers (e.g., `ctrl+c`).
 
@@ -40,7 +40,7 @@ const clearShortcut = shortcut("ctrl+c", () => {
   console.log("Content copied!");
 });
 
-// Clear the shortcur when no longer needed
+// Unbind the shortcut when no longer needed
 clearShortcut();
 ```
 
@@ -70,7 +70,7 @@ shortcut(
 
 ### Key aliases
 
-The shortcut library provides key aliases for simpler shortcut definitions. For example, `esc` can be used instead of `escape`, `cmd` or `win` instead of `meta`, and `ctl` or `ctrl` instead of `control`.
+The shortcut library provides key aliases for simpler shortcut bindings. For example, `esc` can be used instead of `escape`, `cmd` or `win` instead of `meta`, and `ctl` or `ctrl` instead of `control`.
 
 Here's a table of all available aliases:
 
