@@ -41,7 +41,6 @@ export const shortcut = (keys: string, callback: () => void, { timeout = 0 } = {
   let timeoutId = 0;
 
   const reset = () => {
-    console.log("reset");
     cursor = 0;
   };
 
