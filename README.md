@@ -4,20 +4,12 @@ A lightweight JavaScript library for managing keyboard shortcuts in the browser.
 
 ## Installation
 
-There are two convenient ways to install shortcut:
+You can install the library via npm or with your preferred package manager.
 
 Using npm:
 
 ```bash
 npm install @alenaksu/shortcut
-```
-
-Using a CDN (Content Delivery Network):
-
-Include the following script tag in your HTML file:
-
-```html
-<script src="https://unpkg.com/@alenaksu/shortcut@latest"></script>
 ```
 
 ## Usage
